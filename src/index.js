@@ -1,5 +1,9 @@
 /* @flow */
 /* eslint-disable import/no-commonjs */
+import {
+  HIDE_TYPE_OPACITY,
+  HIDE_TYPE_POSITION,
+} from './navigators/createBottomTabNavigator';
 
 module.exports = {
   /**
@@ -28,4 +32,10 @@ module.exports = {
   get createTabNavigator() {
     return require('./utils/createTabNavigator').default;
   },
+
+  /**
+   * Constant for tabs hide type
+   */
+  HIDE_TYPE_OPACITY,
+  HIDE_TYPE_POSITION,
 };

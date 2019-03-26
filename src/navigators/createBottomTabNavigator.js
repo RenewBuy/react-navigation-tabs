@@ -11,6 +11,7 @@ import ResourceSavingScene from '../views/ResourceSavingScene';
 
 type Props = InjectedProps & {
   lazy?: boolean,
+  hideType?: number,
   tabBarComponent?: React.ComponentType<*>,
   tabBarOptions?: TabBarOptions,
 };
@@ -19,9 +20,13 @@ type State = {
   loaded: number[],
 };
 
+export const HIDE_TYPE_OPACITY = 1;
+export const HIDE_TYPE_POSITION = 2;
+
 class TabNavigationView extends React.PureComponent<Props, State> {
   static defaultProps = {
     lazy: true,
+    hideType: HIDE_TYPE_OPACITY,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -88,7 +93,7 @@ class TabNavigationView extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { navigation, renderScene, lazy } = this.props;
+    const { navigation, renderScene, lazy, hideType } = this.props;
     const { routes } = navigation.state;
     const { loaded } = this.state;
 
@@ -102,14 +107,14 @@ class TabNavigationView extends React.PureComponent<Props, State> {
             }
 
             const isFocused = navigation.state.index === index;
-
+            const hideStyle =
+              hideType === HIDE_TYPE_OPACITY
+                ? { opacity: isFocused ? 1 : 0 }
+                : { top: isFocused ? 0 : 3000 };
             return (
               <ResourceSavingScene
                 key={route.key}
-                style={[
-                  StyleSheet.absoluteFill,
-                  { opacity: isFocused ? 1 : 0 },
-                ]}
+                style={[StyleSheet.absoluteFill, hideStyle]}
                 isVisible={isFocused}
               >
                 {renderScene({ route })}

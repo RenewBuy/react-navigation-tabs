@@ -11,10 +11,10 @@
   "scripts": {
     "test": "jest",
     "flow": "flow",
-    "lint": "eslint .",
-    "precommit": "yarn lint && yarn flow && yarn test",
+    "lint": "eslint . --fix",
+    "precommit": "npm run lint && npm run flow && npm run test",
     "build": "babel --no-babelrc --plugins=syntax-jsx,syntax-class-properties,syntax-object-rest-spread,transform-flow-strip-types src --out-dir dist --ignore '**/__tests__/**'",
-    "prepare": "yarn build"
+    "prepare": "npm run build"
   },
   "keywords": [
     "react-native-component",
